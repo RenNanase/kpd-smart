@@ -1,0 +1,96 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  min-height: var(--admin-header-height);
+  padding: 0 1.5rem;
+  background: var(--admin-surface);
+  border-bottom: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.header-spacer {
+  flex: 1;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.role-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.role-switch-label {
+  font-size: 0.7rem;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.role-select {
+  cursor: pointer;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-sm);
+  padding: 0.4rem 0.55rem;
+  font-size: 0.8rem;
+  color: var(--admin-text);
+  background: var(--admin-bg);
+}
+
+.role-select:focus-visible {
+  outline: var(--admin-focus-ring);
+  outline-offset: 1px;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--admin-text);
+}
+
+.user-role {
+  font-size: 0.72rem;
+  text-transform: capitalize;
+  color: var(--admin-text-muted);
+  font-weight: 500;
+}
+
+.sign-out {
+  cursor: pointer;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  border-radius: var(--admin-radius-sm);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.sign-out:hover {
+  background: var(--admin-bg);
+  border-color: var(--palette-deep-teal);
+}
+
+.sign-out:focus-visible {
+  outline: var(--admin-focus-ring);
+  outline-offset: 2px;
+}

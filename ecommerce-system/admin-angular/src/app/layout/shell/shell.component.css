@@ -1,0 +1,35 @@
+.shell {
+  display: grid;
+  grid-template-columns: var(--admin-sidebar-width) 1fr;
+  min-height: 100vh;
+  background: var(--admin-bg);
+}
+
+.shell-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.shell-content {
+  flex: 1;
+  padding: 1.75rem clamp(1rem, 3vw, 2.75rem);
+}
+
+.shell-sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .shell-sidebar {
+    position: relative;
+    height: auto;
+  }
+}

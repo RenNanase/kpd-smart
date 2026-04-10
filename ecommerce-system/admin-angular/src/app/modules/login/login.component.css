@@ -1,0 +1,132 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse 100% 80% at 100% 0%,
+      var(--admin-login-glow-teal),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 0% 100%,
+      var(--admin-login-glow-evergreen),
+      transparent 50%
+    ),
+    var(--admin-bg);
+}
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 26rem;
+  padding: 2.25rem;
+  border-radius: var(--admin-radius);
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-md);
+}
+
+.title {
+  margin: 0 0 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--admin-text);
+  letter-spacing: -0.03em;
+}
+
+.hint {
+  margin: 0 0 1.5rem;
+  font-size: 0.88rem;
+  color: var(--admin-text-muted);
+  line-height: 1.55;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+input,
+select {
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-sm);
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  color: var(--admin-text);
+  background: var(--admin-surface);
+  transition: border-color 0.15s ease;
+}
+
+input:hover,
+select:hover {
+  border-color: var(--palette-deep-teal);
+}
+
+input:focus-visible,
+select:focus-visible {
+  outline: var(--admin-focus-ring);
+  outline-offset: 1px;
+  border-color: var(--palette-deep-teal);
+}
+
+.error {
+  font-size: 0.78rem;
+  color: var(--admin-danger);
+  font-weight: 500;
+}
+
+.submit {
+  margin-top: 0.35rem;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--admin-radius-sm);
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--admin-on-accent);
+  background: var(--admin-gradient-primary);
+  box-shadow: var(--admin-shadow-sm);
+  transition:
+    filter 0.15s ease,
+    transform 0.12s ease;
+}
+
+.submit:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.submit:focus-visible {
+  outline: var(--admin-focus-ring);
+  outline-offset: 2px;
+}

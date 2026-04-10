@@ -3,13 +3,38 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "16f1565b-8a8d-4350-8d5b-ea4555ab8b9b"
+    "analytics": "634c3945-17b8-4502-af44-9db64ec146e7"
   },
   "newProjectRoot": "projects",
   "projects": {
-    "kpd-smart": {
+    "admin-angular": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:component": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -27,15 +52,7 @@
             ],
             "styles": [
               "src/styles.css"
-            ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "security": {
-              "allowedHosts": []
-            },
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
@@ -65,16 +82,13 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "kpd-smart:build:production"
+              "buildTarget": "admin-angular:build:production"
             },
             "development": {
-              "buildTarget": "kpd-smart:build:development"
+              "buildTarget": "admin-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test"
         }
       }
     }

@@ -1,0 +1,21 @@
+<aside class="sidebar" aria-label="Primary navigation">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-text">E‑commerce Admin</span>
+  </div>
+  <nav>
+    <ul class="nav-list">
+      @for (item of nav.visibleItems(); track item.path) {
+        <li>
+          <a
+            [routerLink]="['/', item.path]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: item.path === 'dashboard' }"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</aside>

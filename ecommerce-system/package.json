@@ -1,0 +1,19 @@
+{
+  "name": "ecommerce-system",
+  "version": "0.0.0",
+  "private": true,
+  "description": "E-commerce monorepo: admin (Angular), shop (React), shared contracts and mocks.",
+  "packageManager": "npm@11.6.2",
+  "workspaces": [
+    "admin-angular",
+    "shop-react",
+    "shared/*"
+  ],
+  "scripts": {
+    "start:admin": "npm run start -w admin-angular",
+    "start:shop": "npm run dev -w shop-react",
+    "build": "npm run build --workspaces --if-present",
+    "build:admin": "npm run build -w admin-angular",
+    "build:shop": "npm run build -w shop-react"
+  }
+}

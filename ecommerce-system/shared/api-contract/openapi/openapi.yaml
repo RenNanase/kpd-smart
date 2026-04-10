@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: E-commerce API
+  version: 0.0.0
+  description: >
+    Placeholder OpenAPI document. Expand paths and schemas alongside
+    @ecommerce-system/types and REST path constants.
+servers:
+  - url: /api/v1
+    description: API root (relative to deployment origin)
+paths: {}
+components: {}

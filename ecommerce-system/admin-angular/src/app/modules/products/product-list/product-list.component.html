@@ -1,0 +1,23 @@
+<app-page-header
+  title="Products"
+  subtitle="Manage catalog items, images, and variant combinations."
+/>
+
+@if (canManageProducts()) {
+  <div class="toolbar">
+    <a routerLink="new" class="btn-primary">Create product</a>
+  </div>
+}
+
+<app-data-table [columns]="columns" [rows]="products.all()">
+  <ng-template #actions let-product>
+    @if (canManageProducts()) {
+      <a class="link" [routerLink]="[product.id, 'edit']">Edit</a>
+      <button type="button" class="btn-danger" (click)="deleteProduct(product, $event)">
+        Delete
+      </button>
+    } @else {
+      <span class="muted">View only</span>
+    }
+  </ng-template>
+</app-data-table>

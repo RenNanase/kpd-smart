@@ -1,0 +1,59 @@
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--admin-radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--admin-on-accent);
+  background: var(--admin-gradient-primary);
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--admin-shadow-sm);
+  transition: filter 0.15s ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.06);
+}
+
+.link {
+  margin-right: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--admin-accent-strong);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.btn-danger {
+  cursor: pointer;
+  border: 1px solid var(--admin-danger-border);
+  background: var(--admin-danger-bg);
+  color: var(--admin-danger);
+  border-radius: var(--admin-radius-sm);
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.15s ease;
+}
+
+.btn-danger:hover {
+  background: var(--admin-danger-hover-bg);
+}
+
+.muted {
+  font-size: 0.85rem;
+  color: var(--admin-text-muted);
+}

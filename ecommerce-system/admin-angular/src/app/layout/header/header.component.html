@@ -1,0 +1,24 @@
+<header class="header">
+  <div class="header-spacer" aria-hidden="true"></div>
+  <div class="header-actions">
+    @if (auth.user(); as user) {
+      <div class="user">
+        <span class="user-name">{{ user.displayName }}</span>
+        <span class="user-role">{{ user.role }}</span>
+      </div>
+      <label class="role-switch" aria-label="Switch role (mock)">
+        <span class="role-switch-label">Role</span>
+        <select
+          class="role-select"
+          [value]="user.role"
+          (change)="onRoleChange($event)"
+        >
+          @for (r of roles; track r) {
+            <option [value]="r">{{ r }}</option>
+          }
+        </select>
+      </label>
+    }
+    <button type="button" class="sign-out" (click)="signOut()">Sign out</button>
+  </div>
+</header>

@@ -1,0 +1,212 @@
+.back {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--admin-accent);
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 56rem;
+}
+
+.section {
+  padding: 1.25rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface);
+}
+
+.section-title {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--admin-text);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field.narrow {
+  max-width: 16rem;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+}
+
+input[type='text'],
+input[type='url'],
+input[type='number'],
+textarea,
+select {
+  border: 1px solid var(--admin-border);
+  border-radius: 0.45rem;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.95rem;
+  color: var(--admin-text);
+  background: var(--admin-surface);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 4rem;
+}
+
+.help {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: var(--admin-text-muted);
+  line-height: 1.45;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: var(--admin-danger);
+}
+
+.image-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.image-row input {
+  flex: 1;
+}
+
+.attr-card {
+  border: 1px dashed var(--admin-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.attr-head {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.grow {
+  flex: 1;
+  min-width: 10rem;
+}
+
+.values-block {
+  margin-top: 0.75rem;
+}
+
+.value-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.value-row input {
+  flex: 1;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 0.45rem;
+  padding: 0.45rem 0.85rem;
+}
+
+.btn-primary {
+  border: none;
+  color: var(--admin-on-accent);
+  font-weight: 600;
+  background: var(--admin-gradient-primary);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.btn-secondary {
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+}
+
+.btn-ghost {
+  border: none;
+  background: transparent;
+  color: var(--admin-text-muted);
+}
+
+.btn-ghost:hover {
+  color: var(--admin-text);
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.actions .btn-secondary {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid var(--admin-border);
+}
+
+.admin-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.admin-data-table th,
+.admin-data-table td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+}
+
+.admin-data-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  background: var(--admin-bg);
+}
+
+.combo {
+  color: var(--admin-text-muted);
+  white-space: nowrap;
+}
+
+.admin-data-table input,
+.admin-data-table select {
+  width: 100%;
+  min-width: 5rem;
+  font-size: 0.85rem;
+}

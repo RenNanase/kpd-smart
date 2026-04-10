@@ -1,0 +1,41 @@
+<div class="table-wrap">
+  <table class="admin-data-table">
+    <thead>
+      <tr>
+        @for (col of columns(); track col.key) {
+          <th [style.width]="col.width || null">{{ col.label }}</th>
+        }
+        @if (actionsTemplate()) {
+          <th class="col-actions">Actions</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @if (rows().length === 0) {
+        <tr>
+          <td
+            class="empty"
+            [attr.colspan]="columns().length + (actionsTemplate() ? 1 : 0)"
+          >
+            {{ emptyMessage() }}
+          </td>
+        </tr>
+      } @else {
+        @for (row of rows(); track trackByRow($index, row)) {
+          <tr>
+            @for (col of columns(); track col.key) {
+              <td>{{ cellValue(row, col) }}</td>
+            }
+            @if (actionsTemplate(); as tpl) {
+              <td class="col-actions">
+                <ng-container
+                  *ngTemplateOutlet="tpl; context: { $implicit: row }"
+                />
+              </td>
+            }
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

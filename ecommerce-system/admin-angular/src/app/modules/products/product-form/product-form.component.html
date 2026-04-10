@@ -1,0 +1,132 @@
+<a routerLink="/products" class="back">← Products</a>
+
+<app-page-header [title]="pageTitle()" subtitle="Define attributes, then review generated SKUs and stock rows." />
+
+<form [formGroup]="productForm" (ngSubmit)="save()" class="form" novalidate>
+  <section class="section">
+    <h2 class="section-title">Basics</h2>
+    <div class="grid-2">
+      <label class="field">
+        <span class="label">Name</span>
+        <input type="text" formControlName="name" autocomplete="off" />
+        @if (productForm.controls.name.touched && productForm.controls.name.errors?.['required']) {
+          <span class="error">Name is required.</span>
+        }
+      </label>
+      <label class="field">
+        <span class="label">Category</span>
+        <select formControlName="categoryId">
+          <option value="" disabled>Select category</option>
+          @for (c of categories.all(); track c.id) {
+            <option [value]="c.id">{{ c.name }}</option>
+          }
+        </select>
+        @if (productForm.controls.categoryId.touched && productForm.controls.categoryId.errors?.['required']) {
+          <span class="error">Category is required.</span>
+        }
+      </label>
+    </div>
+    <label class="field">
+      <span class="label">Description</span>
+      <textarea formControlName="description" rows="3"></textarea>
+    </label>
+    <label class="field narrow">
+      <span class="label">Product status</span>
+      <select formControlName="status">
+        <option value="draft">draft</option>
+        <option value="active">active</option>
+        <option value="archived">archived</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Images</h2>
+    <p class="help">Image URLs (mock). Add one per line field.</p>
+    <div formArrayName="images">
+      @for (ctrl of images.controls; track $index; let i = $index) {
+        <div class="image-row">
+          <input type="url" [formControlName]="i" placeholder="https://…" />
+          <button type="button" class="btn-ghost" (click)="removeImageRow(i)">Remove</button>
+        </div>
+      }
+    </div>
+    <button type="button" class="btn-secondary" (click)="addImageRow()">Add image URL</button>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Variation attributes</h2>
+    <p class="help">
+      Example: attribute <strong>Color</strong> with values <strong>Red, Blue</strong> and <strong>Size</strong> with
+      <strong>S, M, L</strong> — variants are generated as the full combination set (cartesian product).
+    </p>
+    <div formArrayName="attributes">
+      @for (attr of attributes.controls; track $index; let i = $index) {
+        <div class="attr-card" [formGroupName]="i">
+          <div class="attr-head">
+            <label class="field grow">
+              <span class="label">Attribute name</span>
+              <input type="text" formControlName="name" placeholder="e.g. Color" />
+            </label>
+            <button type="button" class="btn-ghost" (click)="removeAttributeRow(i)">Remove attribute</button>
+          </div>
+          <div class="values-block" formArrayName="values">
+            <span class="label">Values</span>
+            @for (v of valuesAt(i).controls; track $index; let j = $index) {
+              <div class="value-row">
+                <input type="text" [formControlName]="j" placeholder="e.g. Red" />
+                <button type="button" class="btn-ghost" (click)="removeValueRow(i, j)">✕</button>
+              </div>
+            }
+            <button type="button" class="btn-secondary" (click)="addValueRow(i)">Add value</button>
+          </div>
+        </div>
+      }
+    </div>
+    <button type="button" class="btn-secondary" (click)="addAttributeRow()">Add attribute</button>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Variants</h2>
+    <p class="help">Rows update when attributes change (debounced). Edit SKU, pricing, stock, weight, and variant status.</p>
+    @if (productForm.hasError('variantsRequired') && productForm.touched) {
+      <p class="error">At least one variant is required.</p>
+    }
+    <div class="table-wrap" formArrayName="variants">
+      <table class="admin-data-table">
+        <thead>
+          <tr>
+            <th>Combination</th>
+            <th>SKU</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Weight (kg)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (_ of variants.controls; track $index; let i = $index) {
+            <tr [formGroupName]="i">
+              <td class="combo">{{ variants.at(i).get('attrsDisplay')?.value }}</td>
+              <td><input type="text" formControlName="sku" /></td>
+              <td><input type="number" formControlName="price" min="0" step="0.01" /></td>
+              <td><input type="number" formControlName="stock" min="0" step="1" /></td>
+              <td><input type="number" formControlName="weight" min="0" step="0.01" /></td>
+              <td>
+                <select formControlName="status">
+                  <option value="active">active</option>
+                  <option value="inactive">inactive</option>
+                </select>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="actions">
+    <a routerLink="/products" class="btn-secondary">Cancel</a>
+    <button type="submit" class="btn-primary">Save product</button>
+  </div>
+</form>

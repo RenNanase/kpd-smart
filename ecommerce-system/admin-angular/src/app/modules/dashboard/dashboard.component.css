@@ -1,0 +1,57 @@
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  padding: 1.1rem 1.15rem;
+  border-radius: 0.65rem;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+}
+
+.stat-label {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-value {
+  margin: 0.5rem 0 0.15rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--admin-text);
+}
+
+.stat-foot {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--admin-text-muted);
+}
+
+.panel {
+  padding: 1.15rem 1.25rem;
+  border-radius: 0.65rem;
+  background: var(--admin-surface);
+  border: 1px dashed var(--admin-border);
+}
+
+.panel-title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--admin-text);
+}
+
+.panel-body {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--admin-text-muted);
+  line-height: 1.5;
+}
