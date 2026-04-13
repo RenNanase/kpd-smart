@@ -1,33 +1,23 @@
 export type ProductStatus = 'draft' | 'active' | 'archived';
 
-export type VariantStatus = 'active' | 'inactive';
-
-/** e.g. Color with values Red, Blue */
-export interface ProductAttributeDefinition {
-  name: string;
-  values: string[];
-}
-
-export interface ProductVariant {
-  id: string;
-  /** Stable key from sorted attribute pairs (for merge on regeneration). */
-  signature: string;
-  sku: string;
-  price: number;
-  stock: number;
-  weight: number;
-  status: VariantStatus;
-  /** Attribute name → value for this combination (e.g. Color → Red). */
-  attributes: Record<string, string>;
-}
-
+/** Seller CMS product — matches Express `GET/POST /api/products` JSON. */
 export interface Product {
   id: string;
   name: string;
   description: string;
-  categoryId: string;
-  status: ProductStatus;
+  sellingPrice: number;
+  costPrice: number;
+  unitOfMeasurement: string;
+  discountPercent: number | null;
+  discountAmount: number | null;
+  sku: string | null;
   imageUrls: string[];
-  attributeDefinitions: ProductAttributeDefinition[];
-  variants: ProductVariant[];
+  videoUrl: string | null;
+  rating: number;
+  categoryId: string | null;
+  status: ProductStatus;
+  createdAt: string;
+  updatedAt: string;
 }
+
+export type ProductCreatePayload = Omit<Product, 'id' | 'createdAt' | 'updatedAt'>;

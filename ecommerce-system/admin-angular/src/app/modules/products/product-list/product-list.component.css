@@ -1,3 +1,13 @@
+.list-banner {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid var(--admin-danger-border);
+  background: var(--admin-danger-bg);
+  color: var(--admin-danger);
+  font-size: 0.9rem;
+}
+
 .toolbar {
   display: flex;
   justify-content: flex-end;

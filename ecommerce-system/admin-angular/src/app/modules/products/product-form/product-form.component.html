@@ -1,6 +1,13 @@
 <a routerLink="/products" class="back">← Products</a>
 
-<app-page-header [title]="pageTitle()" subtitle="Define attributes, then review generated SKUs and stock rows." />
+<app-page-header
+  [title]="pageTitle()"
+  subtitle="Catalog fields for sellers: pricing, media (6+ images supported), SKU, discounts, and rating."
+/>
+
+@if (saveError()) {
+  <p class="banner-error">{{ saveError() }}</p>
+}
 
 <form [formGroup]="productForm" (ngSubmit)="save()" class="form" novalidate>
   <section class="section">
@@ -16,117 +23,129 @@
       <label class="field">
         <span class="label">Category</span>
         <select formControlName="categoryId">
-          <option value="" disabled>Select category</option>
+          <option [ngValue]="null">— None —</option>
           @for (c of categories.all(); track c.id) {
-            <option [value]="c.id">{{ c.name }}</option>
+            <option [ngValue]="c.id">{{ c.name }}</option>
           }
         </select>
-        @if (productForm.controls.categoryId.touched && productForm.controls.categoryId.errors?.['required']) {
-          <span class="error">Category is required.</span>
-        }
       </label>
     </div>
     <label class="field">
       <span class="label">Description</span>
-      <textarea formControlName="description" rows="3"></textarea>
+      <textarea formControlName="description" rows="4"></textarea>
     </label>
     <label class="field narrow">
-      <span class="label">Product status</span>
+      <span class="label">Status</span>
       <select formControlName="status">
-        <option value="draft">draft</option>
-        <option value="active">active</option>
-        <option value="archived">archived</option>
+        <option value="draft">Draft</option>
+        <option value="active">Active</option>
+        <option value="archived">Archived</option>
       </select>
     </label>
   </section>
 
   <section class="section">
+    <h2 class="section-title">Pricing &amp; inventory</h2>
+    <div class="grid-2">
+      <label class="field">
+        <span class="label">Selling price (RM)</span>
+        <input type="number" formControlName="sellingPrice" min="0" step="0.01" />
+        @if (productForm.controls.sellingPrice.touched && productForm.controls.sellingPrice.errors?.['required']) {
+          <span class="error">Required.</span>
+        }
+      </label>
+      <label class="field">
+        <span class="label">Cost price (RM)</span>
+        <input type="number" formControlName="costPrice" min="0" step="0.01" />
+      </label>
+      <label class="field">
+        <span class="label">Unit of measurement</span>
+        <input type="text" formControlName="unitOfMeasurement" placeholder="e.g. pcs, kg, box" />
+      </label>
+      <label class="field">
+        <span class="label">SKU (optional)</span>
+        <input type="text" formControlName="sku" placeholder="Stock keeping unit" />
+      </label>
+    </div>
+    <div class="grid-2">
+      <label class="field">
+        <span class="label">Discount % (optional)</span>
+        <input type="number" formControlName="discountPercent" min="0" max="100" step="0.01" />
+      </label>
+      <label class="field">
+        <span class="label">Discount amount RM (optional)</span>
+        <input type="number" formControlName="discountAmount" min="0" step="0.01" />
+      </label>
+    </div>
+    <p class="help">Leave both discount fields empty if there is no promotion.</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Rating</h2>
+    <label class="field narrow">
+      <span class="label">Rating (0–5)</span>
+      <input type="number" formControlName="rating" min="0" max="5" step="0.1" />
+      @if (productForm.controls.rating.touched && productForm.controls.rating.errors) {
+        <span class="error">Use 0–5.</span>
+      }
+    </label>
+  </section>
+
+  <section class="section">
     <h2 class="section-title">Images</h2>
-    <p class="help">Image URLs (mock). Add one per line field.</p>
+    <p class="help">
+      Upload many files (5+ supported) or paste URLs. Files are stored by the API under <code>/uploads</code>.
+    </p>
+    <div class="upload-row">
+      <label class="btn-secondary file-picker">
+        Add images (files)
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          class="sr-only-input"
+          [disabled]="uploading()"
+          (change)="onImageFiles($event)"
+        />
+      </label>
+      @if (uploading()) {
+        <span class="muted">Uploading…</span>
+      }
+    </div>
     <div formArrayName="images">
       @for (ctrl of images.controls; track $index; let i = $index) {
         <div class="image-row">
-          <input type="url" [formControlName]="i" placeholder="https://…" />
+          <input type="url" [formControlName]="i" placeholder="https://… or leave after upload" />
           <button type="button" class="btn-ghost" (click)="removeImageRow(i)">Remove</button>
         </div>
       }
     </div>
-    <button type="button" class="btn-secondary" (click)="addImageRow()">Add image URL</button>
+    <button type="button" class="btn-secondary" (click)="addImageRow()">Add image URL row</button>
   </section>
 
   <section class="section">
-    <h2 class="section-title">Variation attributes</h2>
-    <p class="help">
-      Example: attribute <strong>Color</strong> with values <strong>Red, Blue</strong> and <strong>Size</strong> with
-      <strong>S, M, L</strong> — variants are generated as the full combination set (cartesian product).
-    </p>
-    <div formArrayName="attributes">
-      @for (attr of attributes.controls; track $index; let i = $index) {
-        <div class="attr-card" [formGroupName]="i">
-          <div class="attr-head">
-            <label class="field grow">
-              <span class="label">Attribute name</span>
-              <input type="text" formControlName="name" placeholder="e.g. Color" />
-            </label>
-            <button type="button" class="btn-ghost" (click)="removeAttributeRow(i)">Remove attribute</button>
-          </div>
-          <div class="values-block" formArrayName="values">
-            <span class="label">Values</span>
-            @for (v of valuesAt(i).controls; track $index; let j = $index) {
-              <div class="value-row">
-                <input type="text" [formControlName]="j" placeholder="e.g. Red" />
-                <button type="button" class="btn-ghost" (click)="removeValueRow(i, j)">✕</button>
-              </div>
-            }
-            <button type="button" class="btn-secondary" (click)="addValueRow(i)">Add value</button>
-          </div>
-        </div>
-      }
-    </div>
-    <button type="button" class="btn-secondary" (click)="addAttributeRow()">Add attribute</button>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Variants</h2>
-    <p class="help">Rows update when attributes change (debounced). Edit SKU, pricing, stock, weight, and variant status.</p>
-    @if (productForm.hasError('variantsRequired') && productForm.touched) {
-      <p class="error">At least one variant is required.</p>
-    }
-    <div class="table-wrap" formArrayName="variants">
-      <table class="admin-data-table">
-        <thead>
-          <tr>
-            <th>Combination</th>
-            <th>SKU</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Weight (kg)</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (_ of variants.controls; track $index; let i = $index) {
-            <tr [formGroupName]="i">
-              <td class="combo">{{ variants.at(i).get('attrsDisplay')?.value }}</td>
-              <td><input type="text" formControlName="sku" /></td>
-              <td><input type="number" formControlName="price" min="0" step="0.01" /></td>
-              <td><input type="number" formControlName="stock" min="0" step="1" /></td>
-              <td><input type="number" formControlName="weight" min="0" step="0.01" /></td>
-              <td>
-                <select formControlName="status">
-                  <option value="active">active</option>
-                  <option value="inactive">inactive</option>
-                </select>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
+    <h2 class="section-title">Product video</h2>
+    <p class="help">Paste a URL (e.g. CDN) or upload one video file.</p>
+    <label class="field">
+      <span class="label">Video URL</span>
+      <input type="url" formControlName="videoUrl" placeholder="https://…" />
+    </label>
+    <div class="upload-row">
+      <label class="btn-secondary file-picker">
+        Upload video file
+        <input
+          type="file"
+          accept="video/*"
+          class="sr-only-input"
+          [disabled]="uploading()"
+          (change)="onVideoFile($event)"
+        />
+      </label>
     </div>
   </section>
 
   <div class="actions">
     <a routerLink="/products" class="btn-secondary">Cancel</a>
-    <button type="submit" class="btn-primary">Save product</button>
+    <button type="submit" class="btn-primary" [disabled]="uploading()">Save product</button>
   </div>
 </form>

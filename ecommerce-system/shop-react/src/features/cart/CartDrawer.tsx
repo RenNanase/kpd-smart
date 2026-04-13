@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import { formatRM } from '../../utils/formatCurrency';
 import { useCart } from './useCart';
 
 export function CartDrawer() {
@@ -46,7 +47,7 @@ export function CartDrawer() {
                   <span className="cart-drawer__name">{line.productName}</span>
                   <span className="cart-drawer__variant">{line.variantLabel}</span>
                   <span className="cart-drawer__price">
-                    ${(line.unitPrice * line.quantity).toFixed(2)}
+                    {formatRM(line.unitPrice * line.quantity)}
                   </span>
                 </div>
                 <div className="cart-drawer__controls">
@@ -86,7 +87,7 @@ export function CartDrawer() {
         <div className="cart-drawer__footer">
           <div className="cart-drawer__subtotal">
             <span>Subtotal</span>
-            <strong>${subtotal.toFixed(2)}</strong>
+            <strong>{formatRM(subtotal)}</strong>
           </div>
           <Link
             to="/cart"

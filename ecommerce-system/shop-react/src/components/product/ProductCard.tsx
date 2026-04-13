@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import { formatRM } from '../../utils/formatCurrency';
+
 import type { Product } from '../../types/shop.types';
 
 interface ProductCardProps {
@@ -18,7 +20,7 @@ export function ProductCard({ product }: ProductCardProps) {
           loading="lazy"
         />
         <h2 className="product-card__title">{product.name}</h2>
-        <p className="product-card__from">From ${from.toFixed(2)}</p>
+        <p className="product-card__from">From {formatRM(from)}</p>
       </Link>
     </article>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { shopApi } from '../services/shopApi.mock';
+import { formatRM } from '../utils/formatCurrency';
 import type { Order } from '../types/shop.types';
 
 export function OrderHistoryPage() {
@@ -41,12 +42,12 @@ export function OrderHistoryPage() {
               <ul className="order-card__lines">
                 {o.lines.map((l, i) => (
                   <li key={i}>
-                    {l.name} × {l.quantity} @ ${l.unitPrice.toFixed(2)}
+                    {l.name} × {l.quantity} @ {formatRM(l.unitPrice)}
                   </li>
                 ))}
               </ul>
               <div className="order-card__total">
-                Total: <strong>${o.total.toFixed(2)}</strong>
+                Total: <strong>{formatRM(o.total)}</strong>
               </div>
             </li>
           ))}

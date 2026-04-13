@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { useCart } from '../features/cart/useCart';
+import { formatRM } from '../utils/formatCurrency';
 
 export function CartPage() {
   const { lines, subtotal, removeLine, setQuantity } = useCart();
@@ -24,7 +25,7 @@ export function CartPage() {
                   <div className="muted">SKU {line.sku}</div>
                 </div>
                 <div className="cart-page__line-price">
-                  ${(line.unitPrice * line.quantity).toFixed(2)}
+                  {formatRM(line.unitPrice * line.quantity)}
                 </div>
                 <div className="cart-page__controls">
                   <button
@@ -61,7 +62,7 @@ export function CartPage() {
           </ul>
           <div className="cart-page__summary">
             <p>
-              Subtotal: <strong>${subtotal.toFixed(2)}</strong>
+              Subtotal: <strong>{formatRM(subtotal)}</strong>
             </p>
             <Link to="/checkout" className="btn btn--primary">
               Proceed to checkout

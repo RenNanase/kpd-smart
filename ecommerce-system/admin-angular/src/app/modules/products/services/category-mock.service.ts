@@ -12,7 +12,10 @@ export class CategoryMockService {
 
   readonly all = this.categories.asReadonly();
 
-  getName(id: string): string {
+  getName(id: string | null): string {
+    if (!id) {
+      return '—';
+    }
     return this.categories().find((c) => c.id === id)?.name ?? '—';
   }
 }

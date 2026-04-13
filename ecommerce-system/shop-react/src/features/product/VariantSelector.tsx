@@ -1,3 +1,4 @@
+import { formatRM } from '../../utils/formatCurrency';
 import type { ProductVariant } from '../../types/shop.types';
 
 interface VariantSelectorProps {
@@ -34,7 +35,7 @@ export function VariantSelector({
             >
               <span className="variant-chip__label">{v.label}</span>
               <span className="variant-chip__meta">
-                {out ? 'Out of stock' : `$${v.price.toFixed(2)}`}
+                {out ? 'Out of stock' : formatRM(v.price)}
               </span>
             </button>
           );

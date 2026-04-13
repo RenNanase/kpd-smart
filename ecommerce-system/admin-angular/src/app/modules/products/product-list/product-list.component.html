@@ -1,15 +1,19 @@
 <app-page-header
   title="Products"
-  subtitle="Manage catalog items, images, and variant combinations."
+  subtitle="Seller catalog: pricing, media, SKU, discounts, and ratings — stored in PostgreSQL via the API."
 />
+
+@if (api.listError()) {
+  <p class="list-banner">{{ api.listError() }}</p>
+}
 
 @if (canManageProducts()) {
   <div class="toolbar">
-    <a routerLink="new" class="btn-primary">Create product</a>
+    <a routerLink="new" class="btn-primary">Add product</a>
   </div>
 }
 
-<app-data-table [columns]="columns" [rows]="products.all()">
+<app-data-table [columns]="columns" [rows]="api.products()">
   <ng-template #actions let-product>
     @if (canManageProducts()) {
       <a class="link" [routerLink]="[product.id, 'edit']">Edit</a>

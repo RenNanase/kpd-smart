@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useCart } from '../features/cart/useCart';
 import { VariantSelector } from '../features/product/VariantSelector';
 import { shopApi } from '../services/shopApi.mock';
+import { formatRM } from '../utils/formatCurrency';
 import type { Product, ProductVariant } from '../types/shop.types';
 
 export function ProductDetailPage() {
@@ -82,7 +83,7 @@ export function ProductDetailPage() {
           <p className="product-detail__desc">{product.description}</p>
           {selected ? (
             <p className="product-detail__price">
-              <strong>${selected.price.toFixed(2)}</strong>
+              <strong>{formatRM(selected.price)}</strong>
               <span className="muted"> · SKU {selected.sku}</span>
             </p>
           ) : null}

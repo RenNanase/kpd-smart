@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useCart } from '../features/cart/useCart';
 import { shopApi } from '../services/shopApi.mock';
+import { formatRM } from '../utils/formatCurrency';
 
 export function CheckoutPage() {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ export function CheckoutPage() {
             className="btn btn--primary"
             disabled={submitting}
           >
-            {submitting ? 'Placing order…' : `Pay $${subtotal.toFixed(2)}`}
+            {submitting ? 'Placing order…' : `Pay ${formatRM(subtotal)}`}
           </button>
         </form>
         <aside className="checkout__aside">
@@ -94,13 +95,13 @@ export function CheckoutPage() {
               <li key={l.lineId}>
                 {l.productName} × {l.quantity}{' '}
                 <span className="muted">
-                  ${(l.unitPrice * l.quantity).toFixed(2)}
+                  {formatRM(l.unitPrice * l.quantity)}
                 </span>
               </li>
             ))}
           </ul>
           <p className="checkout__total">
-            Total <strong>${subtotal.toFixed(2)}</strong>
+            Total <strong>{formatRM(subtotal)}</strong>
           </p>
         </aside>
       </div>

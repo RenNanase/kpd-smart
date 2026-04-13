@@ -7,11 +7,15 @@
   "workspaces": [
     "admin-angular",
     "shop-react",
+    "api",
     "shared/*"
   ],
   "scripts": {
     "start:admin": "npm run start -w admin-angular",
     "start:shop": "npm run dev -w shop-react",
+    "start:api": "npm run dev -w api",
+    "check:db": "node api/scripts/check-db.mjs",
+    "migrate": "npm run migrate -w api",
     "build": "npm run build --workspaces --if-present",
     "build:admin": "npm run build -w admin-angular",
     "build:shop": "npm run build -w shop-react"
